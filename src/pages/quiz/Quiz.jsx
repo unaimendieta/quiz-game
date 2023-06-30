@@ -1,7 +1,7 @@
 import { AllAnswer, Answer, AnswerContainer, Correction, MainContainer, Question, QuizContainer, QuizTitle, UserAnswer } from "./styles";
 
 import {QUESTIONS} from "../../constants/questions";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { v4 } from "uuid";
 import Timer from "../../components/timer/Timer";
 
@@ -10,16 +10,14 @@ const Quiz = () => {
     const [counter, setCounter] = useState(0);
     const [answerList, setAnswerList] = useState([]);
 
-    useEffect(()=>{
-        
-    },[]);
+   
 	return (
 	<>
         
 		<MainContainer>
             <QuizContainer initial={{ opacity: 0, scale: 0 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1}}>
             { counter!==questionQnty && 
-                <Timer id="timer" time={5} />
+                <Timer id="timer" time={5} counter={counter} action={()=>handleAnswer("Not Answered",[...answerList],setAnswerList,counter,setCounter)} />
             }
                 <QuizTitle >{counter!==questionQnty? QUESTIONS[counter].question : "FINAL RESULT"}</QuizTitle>
                 <AnswerContainer  playing={counter!==questionQnty}>
@@ -57,8 +55,4 @@ const handleAnswer = (param,answerList,setAnswerList,counter,setCounter,interval
     setCounter(counter+1);
 }
 
-
-const timerCheck = (param) =>{
-    console.log(param);
-}
 export default Quiz;
